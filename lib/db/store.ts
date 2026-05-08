@@ -7,12 +7,16 @@ import os from "node:os";
 export function getDataDir(): string {
   const custom = process.env.PRAXON_DATA_DIR;
   if (custom) return custom;
+  // Vercel + serverless envs only allow writes to /tmp. Detect & redirect.
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return "/tmp/.praxon";
+  }
   return path.join(os.homedir(), ".praxon");
 }
 
 const dataDir = getDataDir();
-fsSync.mkdirSync(dataDir, { recursive: true });
-fsSync.mkdirSync(path.join(dataDir, "workspaces"), { recursive: true });
+try { fsSync.mkdirSync(dataDir, { recursive: true }); } catch { /* read-only fs */ }
+try { fsSync.mkdirSync(path.join(dataDir, "workspaces"), { recursive: true }); } catch { /* */ }
 
 type Json = Record<string, unknown> | unknown[];
 
