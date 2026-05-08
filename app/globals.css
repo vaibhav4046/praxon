@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --primary: 205 90% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 205 90% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 205 90% 50%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --praxon-hue: 200;
+    --praxon-sat: 80%;
+    --background: 222 18% 5%;
+    --foreground: 210 14% 96%;
+    --card: 222 18% 7%;
+    --card-foreground: 210 14% 96%;
+    --primary: var(--praxon-hue) var(--praxon-sat) 60%;
+    --primary-foreground: 222 18% 6%;
+    --secondary: 222 14% 11%;
+    --secondary-foreground: 210 14% 96%;
+    --muted: 222 14% 10%;
+    --muted-foreground: 215 10% 60%;
+    --accent: var(--praxon-hue) var(--praxon-sat) 62%;
+    --accent-foreground: 222 18% 6%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 222 12% 14%;
+    --input: 222 12% 14%;
+    --ring: var(--praxon-hue) var(--praxon-sat) 62%;
+  }
+
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
+  }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-border rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-muted-foreground/30; }
+  ::selection { @apply bg-accent/25 text-foreground; }
+}
+
+@layer utilities {
+  .glass {
+    background-color: hsl(var(--card) / 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border));
+  }
+  .glass-strong {
+    background-color: hsl(var(--card) / 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--border));
+  }
+  .text-gradient {
+    background: linear-gradient(180deg, hsl(var(--foreground)) 0%, hsl(var(--foreground) / 0.55) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-accent-gradient {
+    background: linear-gradient(135deg, hsl(var(--praxon-hue) var(--praxon-sat) 70%) 0%, hsl(calc(var(--praxon-hue) + 25) var(--praxon-sat) 65%) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.6) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.6) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 50% at 50% 0%, black 30%, transparent 80%);
+  }
+  .bg-dot {
+    background-image: radial-gradient(hsl(var(--border)) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .praxon-glow {
+    box-shadow:
+      0 0 0 1px hsl(var(--praxon-hue) var(--praxon-sat) 60% / 0.2),
+      0 4px 20px -4px hsl(var(--praxon-hue) var(--praxon-sat) 60% / 0.3);
+  }
+  .praxon-gradient {
+    background: linear-gradient(135deg, hsl(var(--praxon-hue) var(--praxon-sat) 55%) 0%, hsl(calc(var(--praxon-hue) + 20) var(--praxon-sat) 50%) 100%);
+  }
+  .praxon-gradient-soft {
+    background: linear-gradient(135deg, hsl(var(--praxon-hue) var(--praxon-sat) 55% / 0.08) 0%, hsl(calc(var(--praxon-hue) + 20) var(--praxon-sat) 50% / 0.08) 100%);
+  }
+  .neon-text { /* kept name for back-compat, now subtle */
+    text-shadow: none;
+  }
+  .neon-border {
+    border: 1px solid hsl(var(--border));
+  }
+  .crt { position: relative; }
+  .crt::after { display: none; }
+  .blob { display: none; }
+  .terminal-prompt::before {
+    content: "$ ";
+    color: hsl(var(--accent));
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+  .mono-num { font-family: var(--font-mono), ui-monospace, monospace; font-feature-settings: "tnum"; }
+
+  .anim-fade-in { animation: fadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-fade-up { animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-scale-in { animation: scaleIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .anim-shimmer {
+    background: linear-gradient(90deg, transparent, hsl(var(--muted-foreground) / 0.1), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  .anim-blob { animation: none; }
+  .anim-pulse-glow { animation: pulseSoft 2.5s ease-in-out infinite; }
+  .anim-spin-slow { animation: spin 3s linear infinite; }
+  .anim-cursor { animation: cursorBlink 1s step-end infinite; }
+  .anim-glitch:hover { animation: none; }
+  .anim-scanline { position: relative; }
+  .anim-scanline::before { display: none; }
+  .anim-typewriter {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typewriter 1.6s steps(28, end) 0.2s both;
+  }
+  .anim-flicker { animation: none; }
+
+  .stagger > * { opacity: 0; animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .stagger > *:nth-child(1) { animation-delay: 60ms; }
+  .stagger > *:nth-child(2) { animation-delay: 120ms; }
+  .stagger > *:nth-child(3) { animation-delay: 180ms; }
+  .stagger > *:nth-child(4) { animation-delay: 240ms; }
+  .stagger > *:nth-child(5) { animation-delay: 300ms; }
+  .stagger > *:nth-child(6) { animation-delay: 360ms; }
+  .stagger > *:nth-child(7) { animation-delay: 420ms; }
+  .stagger > *:nth-child(8) { animation-delay: 480ms; }
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@keyframes pulseSoft { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+@keyframes cursorBlink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+@keyframes typewriter { from { width: 0; } to { width: 100%; } }
