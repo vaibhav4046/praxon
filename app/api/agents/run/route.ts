@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { runAutonomous } from "@/lib/agents/autonomous";
 
 export const runtime = "nodejs";
-export const maxDuration = 600;
+export const maxDuration = 300;
 
 export async function POST(req: NextRequest) {
   const { goal, projectId, preferredProvider, maxSteps } = await req.json();
