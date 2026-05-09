@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/banner.png" alt="Praxon — open-source AI agent platform" width="100%">
+
 # Praxon
 
 **Open-source AI agent platform · Free LLMs · Local-first · Cloud-deployable**
